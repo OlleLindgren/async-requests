@@ -1,4 +1,5 @@
 # async-requests
+
 A library for doing GET requests asyncronously
 
 ## Dependencies
@@ -11,7 +12,7 @@ aiohttp
 
 ## Install
 
-`pip install git+https://github.com/OlleLindgren/async-requests@v0.1`
+`pip install git+https://github.com/OlleLindgren/async-requests@v0.1.1`
 
 ## Usage: Asyncronous GET requests
 
