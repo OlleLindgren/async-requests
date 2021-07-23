@@ -6,6 +6,17 @@ import aiohttp
 from queue import Queue
 from collections import Counter
 
+# Windows-specifics!
+# asyncio has some problem with event loops that only happens on Windows.
+# As suggested by some dude on the internet, I shall set the proper event loop policy!
+
+# https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
+
+import os
+if os.name=='nt':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+# End of Windows specifics
+
 class Forwarder:
 
     max_freq: float                     # Max requests per second
