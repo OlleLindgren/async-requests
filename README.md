@@ -12,7 +12,7 @@ aiohttp
 
 ## Install
 
-`pip install git+https://github.com/OlleLindgren/async-requests@v0.1.1`
+`pip install git+https://github.com/OlleLindgren/async-requests@v0.1.2`
 
 ## Usage: Asyncronous GET requests
 
