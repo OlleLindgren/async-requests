@@ -51,8 +51,6 @@ class Forwarder:
         # Minimum time between requests
         self.min_dt = datetime.timedelta(seconds = 1.0/max_freq if max_freq > 0.0 else 0.0)
 
-        print(f'min dt={self.min_dt}, max freq={self.max_freq}')
-
     def iter_urls(self) -> Tuple[str, datetime.datetime]:
         while not self.queue.empty():
             yield self.queue.get()
