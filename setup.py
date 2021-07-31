@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="async-requests",
-    version="v0.1.1",
+    version="v0.1.2",
     author="Olle Lindgren",
     author_email="lindgrenolle@live.se",
     description="A package for easily making asyncronous GET requests",
