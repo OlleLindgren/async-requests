@@ -12,7 +12,7 @@ aiohttp
 
 ## Install
 
-`pip install git+https://github.com/OlleLindgren/async-requests@v0.1.2`
+`pip install git+https://github.com/OlleLindgren/async-requests@main`
 
 ## Usage: Asyncronous GET requests
 
@@ -29,7 +29,8 @@ results = forward(urls) # Generator with results of requests
 fwd = Forwarder(
     max_freq = 10.0,  # Requests / second
     max_attempts = 2, # Attempts / request url
-    batch_size = 20   # Size of each batch
+    batch_size = 20,  # Size of each batch
+    timeout = 10      # Individual request timeout in seconds
 )
 # Result is given in batches
 batches = fwd.collect_at_freq(urls)

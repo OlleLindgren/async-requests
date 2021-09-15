@@ -26,12 +26,14 @@ class Forwarder:
     attempts: Counter                   # Number of attempts for each url
     max_attempts: int                   # Max number of attempts for any given url
     queue: Queue                        # Queue of urls and time slots to get requests from them
+    timeout: int                        # How many seconds to wait before a request times out
 
     def __init__(
         self, 
         max_freq: float=0.0, 
         max_attempts: int=2, 
         batch_size: int=20, # Results of collect_at_freq is returned in batches of size batch_size
+        timeout: int=10
         ) -> None:
 
         # Max frequency of requests. Unlimited if 0.0
@@ -39,6 +41,7 @@ class Forwarder:
         # Max attempts for each url. Unlimited if 0
         self.max_attempts = max_attempts
         self.batch_size = batch_size
+        self.timeout = timeout
 
         # Time of last call (request)
         self.last_call = datetime.datetime.now()
@@ -93,7 +96,6 @@ class Forwarder:
 
     async def forward_request_async(self, url: str, session: aiohttp.ClientSession, t_slot: datetime.datetime) -> dict:
         # Process a single request
-
         # If too early, wait until t_slot
         _t = datetime.datetime.now()
         _dt = t_slot - _t
@@ -105,7 +107,7 @@ class Forwarder:
 
         success = False
         try:
-            async with session.get(url=url) as response:
+            async with session.get(url=url, timeout=self.timeout) as response:
                 assert response.status==200
                 result = await response.json()
                 success = response.status==200
@@ -117,7 +119,7 @@ class Forwarder:
             if self.attempts[url] < self.max_attempts:
                 self.enqueue(url)
             result = []
-        
+                
         return {url: {"json": result, "success": success}}
 
 def forward(urls):
